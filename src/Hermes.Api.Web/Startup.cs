@@ -5,8 +5,10 @@ using HermesWebApi.Configuration.Filters;
 using HermesWebApi.Configuration.Swagger;
 using HermesWebApi.Configuration;
 using Microsoft.EntityFrameworkCore;
-using Infrastructure.Persistance;
-using Microsoft.Extensions.Logging;  
+using Hermes.Modules.Users.Queries;
+using Infrastructure.Persistence;
+using Hermes.Modules.Shared.Providers;
+using HermesWebApi.Configuration.Externals;
 
 namespace HermesWebApi;
 
@@ -43,6 +45,16 @@ public class Startup
         services.AddAuthentication(IISDefaults.AuthenticationScheme);
         services.AddAuthorization();
         services.AddApplicationOptions(Configuration);
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssembly(typeof(Startup).Assembly);
+            cfg.RegisterServicesFromAssembly(typeof(GetAllUsersQueryHandler).Assembly);
+
+        });
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+
+
         services.AddScoped<ApiKeyAuthorizationFilter>();
     }
 
