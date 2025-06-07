@@ -1,7 +1,7 @@
 ﻿using Hermes.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistance
+namespace Infrastructure.Persistence
 {
     public class AntiqueShopDbContext : DbContext
     {
@@ -13,9 +13,11 @@ namespace Infrastructure.Persistance
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<User> Users { get; set; }
+
         public AntiqueShopDbContext(DbContextOptions<AntiqueShopDbContext> options) : base(options)
-        { }
-        
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -40,29 +42,14 @@ namespace Infrastructure.Persistance
                 entity.Property(u => u.IsActive)
                     .IsRequired();
 
-                entity.HasOne(u => u.Address)
-                    .WithOne(a => a.User)
-                    .HasForeignKey<Address>(a => a.UserId)
-                    .IsRequired()
-                    .OnDelete(DeleteBehavior.Cascade);
-
-                entity.HasOne(u => u.CreatedBy)
-                    .WithMany()
-                    .HasForeignKey(u => u.CreatedById)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(u => u.ModifiedBy)
-                    .WithMany()
-                    .HasForeignKey(u => u.ModifiedById)
-                    .OnDelete(DeleteBehavior.Restrict);
-
+                entity.Property(u => u.AddressId)
+                    .IsRequired(false);
 
                 entity.HasMany(u => u.Orders)
                     .WithOne(o => o.User)
                     .HasForeignKey(o => o.UserId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
-
 
             modelBuilder.Entity<Address>(entity =>
             {
@@ -89,17 +76,7 @@ namespace Infrastructure.Persistance
 
                 entity.Property(a => a.ApartmentNumber)
                     .HasMaxLength(20);
-
-                 entity.HasOne(a => a.User)
-                    .WithOne(u => u.Address)
-                    .HasForeignKey<Address>(a => a.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-                entity.Ignore(a => a.CreatedBy);
-                entity.Ignore(a => a.ModifiedBy);
             });
-
-
 
             modelBuilder.Entity<AntiqueShop>(entity =>
             {
@@ -130,7 +107,6 @@ namespace Infrastructure.Persistance
                     .HasForeignKey(b => b.AntiqueShopId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
-
 
             modelBuilder.Entity<Book>(entity =>
             {
