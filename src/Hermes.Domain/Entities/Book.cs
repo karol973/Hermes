@@ -10,14 +10,18 @@ namespace Hermes.Domain.Entities
         public decimal Price { get; init; }
         public int Quantity { get; init; }
         public bool IsAvailable { get; init; }
-
         public Guid AuthorId { get; init; }
         public Author Author { get; init; }
-
         public Guid PublisherId { get; init; }
         public Publisher Publisher { get; init; }
         public BookCategory Category { get; init; }
-
+        public Guid AntiqueShopId { get; init; }           
+        public AntiqueShop AntiqueShop { get; init; }
         public ICollection<OrderItem> OrderItems { get; init; } = new List<OrderItem>();
+        public Book()
+        {
+            Name = string.Empty;
+
+        }
     }
 }

@@ -9,25 +9,22 @@ namespace Hermes.Domain.Entities
 {
     public class Address : BaseEntity
     {
+  
         public Guid Id { get; init; }
-
-        [Required]
         public string Street { get; init; }     
-
-        [Required]
         public string City { get; init; }      
-
-        [Required]
         public string PostalCode { get; init; }        
-
-        [Required]
         public string Country { get; init; }         
-
         public string? StateOrRegion { get; init; }    
-
         public string? ApartmentNumber { get; init; }  
-
         public Guid UserId { get; init; }           
-        public User User { get; init; }
+        public User User { get; init; } = null!;
+        public Address()
+        {
+            Street = string.Empty;
+            City = string.Empty;
+            PostalCode = string.Empty;
+            Country = string.Empty;
+        }
     }
 }

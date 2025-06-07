@@ -9,5 +9,10 @@
         public string? PhoneNumber { get; init; }
         public bool IsActive { get; init; }
         public List<Book> Books { get; init; } = new List<Book>();
+        public AntiqueShop()
+        {
+            Name = string.Empty;
+            Description = string.Empty; 
+        }
     }
 }
