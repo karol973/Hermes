@@ -1,7 +1,9 @@
-﻿namespace HermesWebApi.Configuration.Externals
+﻿using Hermes.Modules.Shared.Providers;
+
+namespace HermesWebApi.Configuration.Externals
 {
     public class DateTimeProvider 
-        //: IDateTimeProvider
+        : IDateTimeProvider
     {
     public DateTimeProvider()
     { }
