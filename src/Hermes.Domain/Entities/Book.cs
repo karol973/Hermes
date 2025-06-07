@@ -4,18 +4,18 @@ namespace Hermes.Domain.Entities
 {
     public class Book : BaseEntity
     {
-        public Guid Id { get; init; }
+        public int Id { get; init; }
         public string Name { get; init; }
         public int PublishYear { get; init; }
         public decimal Price { get; init; }
         public int Quantity { get; init; }
         public bool IsAvailable { get; init; }
-        public Guid AuthorId { get; init; }
+        public int AuthorId { get; init; }
         public Author Author { get; init; }
-        public Guid PublisherId { get; init; }
+        public int PublisherId { get; init; }
         public Publisher Publisher { get; init; }
         public BookCategory Category { get; init; }
-        public Guid AntiqueShopId { get; init; }           
+        public int AntiqueShopId { get; init; }           
         public AntiqueShop AntiqueShop { get; init; }
         public ICollection<OrderItem> OrderItems { get; init; } = new List<OrderItem>();
         public Book()

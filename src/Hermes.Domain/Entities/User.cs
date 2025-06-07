@@ -2,15 +2,15 @@
 
 namespace Hermes.Domain.Entities
 {
-    public class User : BaseEntity
+    public class User  
     {
-        public Guid Id { get; init; }
+        public int Id { get; init; }
         public string Username { get; init; }
         public string PasswordHash { get; init; }
         public Role Role { get; init; }
         public bool IsActive { get; init; }
-        public Guid AddressId { get; init; }
-        public Address Address { get; init; }
+        public int? AddressId { get; init; }  
+        public Address? Address { get; init; } 
         public ICollection<Order> Orders { get; init; } = new List<Order>();
     }
 }

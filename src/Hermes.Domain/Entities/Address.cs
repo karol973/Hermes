@@ -10,15 +10,13 @@ namespace Hermes.Domain.Entities
     public class Address : BaseEntity
     {
   
-        public Guid Id { get; init; }
+        public int Id { get; init; }
         public string Street { get; init; }     
         public string City { get; init; }      
         public string PostalCode { get; init; }        
         public string Country { get; init; }         
         public string? StateOrRegion { get; init; }    
-        public string? ApartmentNumber { get; init; }  
-        public Guid UserId { get; init; }           
-        public User User { get; init; } = null!;
+        public string? ApartmentNumber { get; init; }
         public Address()
         {
             Street = string.Empty;
