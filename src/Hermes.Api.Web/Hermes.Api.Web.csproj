@@ -10,18 +10,28 @@
     <PackageReference Include="Autofac" Version="8.2.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
     <PackageReference Include="AutoMapper.Contrib.Autofac.DependencyInjection" Version="8.1.0" />
-    <PackageReference Include="DevExpress.Xpo" Version="24.2.6" />
     <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="12.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0-preview.3.25172.1" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.0-preview.3.25172.1" />
     <PackageReference Include="NLog" Version="5.4.0" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Hermes.Infrastructure.csproj" />
+    <ProjectReference Include="..\Hermes.Domain\Hermes.Domain.csproj" />
+    <ProjectReference Include="..\Hermes.Infrastructure\Hermes.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

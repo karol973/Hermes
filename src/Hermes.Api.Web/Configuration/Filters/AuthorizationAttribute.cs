@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using Hermes.Domain.Enums;
 
 namespace HermesWebApi.Configuration.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class AuthorizationAttribute : AuthorizeAttribute, IAsyncAuthorizationFilter
+    public class AuthorizationAttribute : AuthorizeAttribute //, IAsyncAuthorizationFilter
     {
         private readonly Role _role;
 
@@ -19,42 +20,42 @@ namespace HermesWebApi.Configuration.Filters
             _role = role;
         }
 
-        public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
-        {
-            Endpoint endpoint = context.HttpContext.GetEndpoint();
+        //public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
+        //{
+        //    Endpoint endpoint = context.HttpContext.GetEndpoint();
 
-            if (endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() != null)
-            {
-                return;
-            }
+        //    if (endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() != null)
+        //    {
+        //        return;
+        //    }
 
-            string identity = context.HttpContext.User.Identity?.Name;
+        //    string identity = context.HttpContext.User.Identity?.Name;
 
-            if (string.IsNullOrEmpty(identity))
-            {
-                HandleUnathorizedRequest(context);
-                return;
-            }
+        //    if (string.IsNullOrEmpty(identity))
+        //    {
+        //        HandleUnathorizedRequest(context);
+        //        return;
+        //    }
 
-            if (_role == Role.None)
-            {
-                return;
-            }
+        //    if (_role == Role.None)
+        //    {
+        //        return;
+        //    }
 
-            IMediator mediator = context.HttpContext.RequestServices.GetService<IMediator>();
+        //    IMediator mediator = context.HttpContext.RequestServices.GetService<IMediator>();
 
-            bool result = await mediator.Send(new AuthorizeUserQuery()
-            {
-                UserLogin = identity,
-                Role = _role
-            });
+        //    bool result = await mediator.Send(new AuthorizeUserQuery()
+        //    {
+        //        UserLogin = identity,
+        //        Role = _role
+        //    });
 
-            if (!result)
-            {
-                HandleUnathorizedRequest(context);
-                return;
-            }
-        }
+        //    if (!result)
+        //    {
+        //        HandleUnathorizedRequest(context);
+        //        return;
+        //    }
+        //}
 
         private void HandleUnathorizedRequest(AuthorizationFilterContext context)
         {

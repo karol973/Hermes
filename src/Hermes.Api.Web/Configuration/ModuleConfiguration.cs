@@ -35,15 +35,15 @@ namespace HermesWebApi.Configuration
 
         private static void RegisterMediatR(ContainerBuilder builder, Assembly[] assemblies)
         {
-            Type[] pipelineTypes = new Type[]
-            {
-         typeof(IdentityBehavior<,>),
-            };
+            //Type[] pipelineTypes = new Type[]
+            // {
+            //        typeof(IdentityBehavior<,>),
+            // };
 
             MediatRConfiguration configuration = MediatRConfigurationBuilder
                .Create(assemblies)
                .WithAllOpenGenericHandlerTypesRegistered()
-               .WithCustomPipelineBehaviors(pipelineTypes)
+               //.WithCustomPipelineBehaviors(pipelineTypes)
                .Build();
 
             builder.RegisterMediatR(configuration);
