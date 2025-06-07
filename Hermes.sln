@@ -5,6 +5,14 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Api.Web", "src\Hermes.Api.Web\Hermes.Api.Web.csproj", "{4F581086-C6A4-4306-A5D5-00AE79705922}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Domain", "src\Hermes.Domain\Hermes.Domain.csproj", "{925DEE66-7821-4355-A390-DECB832E55D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Shared", "src\Hermes.Shared\Hermes.Shared.csproj", "{9EA81DFB-F5E3-49E6-9925-F4510B0A6C9A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Infrastructure", "src\Hermes.Infrastructure\Hermes.Infrastructure.csproj", "{1C432A9C-267F-4359-8CF7-F671DE65727D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{261E7C06-A65E-4A95-BFDC-CB900F86967C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +23,18 @@ Global
 		{4F581086-C6A4-4306-A5D5-00AE79705922}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F581086-C6A4-4306-A5D5-00AE79705922}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F581086-C6A4-4306-A5D5-00AE79705922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{925DEE66-7821-4355-A390-DECB832E55D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{925DEE66-7821-4355-A390-DECB832E55D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{925DEE66-7821-4355-A390-DECB832E55D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{925DEE66-7821-4355-A390-DECB832E55D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EA81DFB-F5E3-49E6-9925-F4510B0A6C9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EA81DFB-F5E3-49E6-9925-F4510B0A6C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EA81DFB-F5E3-49E6-9925-F4510B0A6C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EA81DFB-F5E3-49E6-9925-F4510B0A6C9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C432A9C-267F-4359-8CF7-F671DE65727D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C432A9C-267F-4359-8CF7-F671DE65727D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C432A9C-267F-4359-8CF7-F671DE65727D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C432A9C-267F-4359-8CF7-F671DE65727D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
