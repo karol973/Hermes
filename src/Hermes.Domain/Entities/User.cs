@@ -9,8 +9,8 @@ namespace Hermes.Domain.Entities
         public string PasswordHash { get; init; }
         public Role Role { get; init; }
         public bool IsActive { get; init; }
-        public int? AddressId { get; init; }  
-        public Address? Address { get; init; } 
+        public int? AddressId { get; set; }  
+        public Address? Address { get; set; } 
         public ICollection<Order> Orders { get; init; } = new List<Order>();
     }
 }
