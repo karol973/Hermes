@@ -19,6 +19,12 @@ namespace Hermes.Modules.Users.Commands.Users.CreateUser
 
         public async Task<Response> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
+            User user = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username, cancellationToken);
+
+            if (user is null)
+            {
+                return Response.Failure($"User with a login '{request.Username}' does not exist.");
+            }
 
             bool alreadyExists = await _context.Users.AnyAsync(u => u.Username == request.Username, cancellationToken);
 

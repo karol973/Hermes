@@ -21,7 +21,7 @@ namespace Hermes.Modules.Users.Queries
 
         public async Task<IEnumerable<UserDto>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            List<User> users = await _context.Users
+            var users = await _context.Users
                 .Include(u => u.Address)
                 .ToListAsync(cancellationToken);
             return _mapper.Map<IEnumerable<UserDto>>(users);

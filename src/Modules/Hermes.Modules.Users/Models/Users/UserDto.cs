@@ -1,6 +1,4 @@
-﻿using Hermes.Domain.Entities;
-using Hermes.Domain.Enums;
-using Hermes.Modules.Users.Models.Address;
+﻿using Hermes.Domain.Enums;
 
 namespace Hermes.Application.DTOs
 {
@@ -12,7 +10,10 @@ namespace Hermes.Application.DTOs
         public string Role { get; set; } = string.Empty; 
         public bool IsActive { get; set; }
         public int? AddressId { get; set; }
-        public AddressDto? Address { get; set; }
+        public string? AddressStreet { get; set; }
+        public string? AddressCity { get; set; }
+        public string? AddressPostalCode { get; set; }
+        public string? AddressCountry { get; set; }
 
     }
 }
