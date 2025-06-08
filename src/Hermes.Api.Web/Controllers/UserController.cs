@@ -1,4 +1,7 @@
-﻿using Hermes.Modules.Users.Queries;
+﻿using Hermes.Domain.Enums;
+using Hermes.Modules.Users.Commands.Users.CreateUser;
+using Hermes.Modules.Users.Queries;
+using HermesWebApi.Configuration.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +20,12 @@ namespace Hermes.Api.Web.Controllers
         public Task<IActionResult> GetAllAsync()
         {
             return HandleAsync(new GetAllUsersQuery());
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public Task<IActionResult> CreateAsync([FromBody] CreateUserCommand command)
+        {
+            return HandleAsync(command);
         }
     }
 }
