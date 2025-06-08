@@ -30,6 +30,7 @@
     <ProjectReference Include="..\Hermes.Domain\Hermes.Domain.csproj" />
     <ProjectReference Include="..\Hermes.Infrastructure\Hermes.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Hermes.Modules.Administration\Hermes.Modules.Users.csproj" />
+    <ProjectReference Include="..\Modules\Hermes.Modules.Books\Hermes.Modules.Books.csproj" />
   </ItemGroup>
 
 </Project>

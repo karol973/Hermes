@@ -9,6 +9,7 @@ using Hermes.Modules.Users.Queries;
 using Infrastructure.Persistence;
 using Hermes.Modules.Shared.Providers;
 using HermesWebApi.Configuration.Externals;
+using Hermes.Modules.Books.Queries;
 
 namespace HermesWebApi;
 
@@ -49,6 +50,7 @@ public class Startup
         {
             cfg.RegisterServicesFromAssembly(typeof(Startup).Assembly);
             cfg.RegisterServicesFromAssembly(typeof(GetAllUsersQueryHandler).Assembly);
+            cfg.RegisterServicesFromAssembly(typeof(GetAllBooksQueryHandler).Assembly);
 
         });
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
