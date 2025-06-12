@@ -32,6 +32,7 @@ namespace Hermes.Modules.Books.Commands.Books.CreateBook
                 PublishYear = request.PublishYear,
                 AuthorId = request.AuthorId,
                 Price = request.Price,
+                BookImage = request.BookImage,
                 IsAvailable = true,
                 Category = request.Category,
                 PublisherId = request.PublisherId,

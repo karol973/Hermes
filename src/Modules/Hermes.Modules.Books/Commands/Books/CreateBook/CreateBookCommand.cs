@@ -11,6 +11,7 @@ namespace Hermes.Modules.Books.Commands.Books.CreateBook
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public bool IsAvailable { get; set; }
+        public byte[]? BookImage { get; set; }
         public int AuthorId { get; set; }
         public int PublisherId { get; set; }
         public BookCategory Category { get; set; } = BookCategory.None;
