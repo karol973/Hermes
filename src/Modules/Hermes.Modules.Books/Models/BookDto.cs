@@ -17,6 +17,7 @@ namespace Hermes.Modules.Books.Models
         public bool IsAvailable { get; set; }
         public int AuthorId { get; set; }
         public string AuthorName { get; set; } = string.Empty;  
+        public byte[]? BookImage { get; set; }
         public int PublisherId { get; set; }
         public string PublisherName { get; set; } = string.Empty;  
         //public BookCategory Category { get; set; }
