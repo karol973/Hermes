@@ -130,7 +130,6 @@ namespace Infrastructure.Persistence
                     .IsRequired();
 
                 entity.Property(b => b.Category)
-                    .HasConversion<string>()
                     .IsRequired();
 
                 entity.HasIndex(b => new { b.Name, b.AuthorId })
