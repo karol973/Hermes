@@ -2,10 +2,10 @@
 {
     public class Author : BaseEntity
     {
-        public int Id { get; init; }
-        public string Name { get; init; }
-        public string Surname { get; init; }
-        public ICollection<Book> Books { get; init; } = new List<Book>();
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public ICollection<Book> Books { get; set; } = new List<Book>();
         public Author()
         {
             Name = string.Empty;

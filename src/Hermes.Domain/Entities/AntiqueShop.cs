@@ -2,13 +2,13 @@
 {
     public class AntiqueShop : BaseEntity
     {
-        public int Id { get; init; }
-        public string Name { get; init; }
-        public string Description { get; init; }
-        public string? EmailAddress { get; init; }
-        public string? PhoneNumber { get; init; }
-        public bool IsActive { get; init; }
-        public List<Book> Books { get; init; } = new List<Book>();
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string? EmailAddress { get; set; }
+        public string? PhoneNumber { get; set; }
+        public bool IsActive { get; set; }
+        public List<Book> Books { get; set; } = new List<Book>();
         public AntiqueShop()
         {
             Name = string.Empty;

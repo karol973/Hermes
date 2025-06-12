@@ -10,13 +10,13 @@ namespace Hermes.Domain.Entities
     public class Address : BaseEntity
     {
   
-        public int Id { get; init; }
-        public string Street { get; init; }     
-        public string City { get; init; }      
-        public string PostalCode { get; init; }        
-        public string Country { get; init; }         
-        public string? StateOrRegion { get; init; }    
-        public string? ApartmentNumber { get; init; }
+        public int Id { get; set; }
+        public string Street { get; set; }     
+        public string City { get; set; }      
+        public string PostalCode { get; set; }        
+        public string Country { get; set; }         
+        public string? StateOrRegion { get; set; }    
+        public string? ApartmentNumber { get; set; }
         public Address()
         {
             Street = string.Empty;

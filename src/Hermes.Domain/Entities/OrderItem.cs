@@ -2,12 +2,12 @@
 {
     public class OrderItem : BaseEntity
     {
-        public int Id { get; init; }
-        public int OrderId { get; init; }
-        public Order Order { get; init; }   
-        public int BookId { get; init; }
-        public Book Book { get; init; }
-        public int Quantity {  get; init; }
-        public decimal UnitPrice { get; init; }
+        public int Id { get; set; }
+        public int OrderId { get; set; }
+        public Order Order { get; set; }   
+        public int BookId { get; set; }
+        public Book Book { get; set; }
+        public int Quantity {  get; set; }
+        public decimal UnitPrice { get; set; }
     }
 }

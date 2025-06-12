@@ -8,9 +8,9 @@ namespace Hermes.Domain.Entities
 {
     public class Publisher : BaseEntity
     {
-        public int Id { get; init; }
-        public string Name { get; init; }
-        public ICollection<Book> Books { get; init; } = new List<Book>();
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public ICollection<Book> Books { get; set; } = new List<Book>();
 
     }
 }

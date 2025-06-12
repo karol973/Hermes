@@ -2,11 +2,11 @@
 {
     public class Order
     {
-        public int Id { get; init; }
-        public DateTime OrderDate { get; init; }
-        public int UserId { get; init; }
-        public User User { get; init; }
-        public ICollection<OrderItem> OrderItems { get; init; } = new List<OrderItem>();
+        public int Id { get; set; }
+        public DateTime OrderDate { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
     }
 }
