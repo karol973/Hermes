@@ -7,11 +7,16 @@
             services.AddCors(options => options.AddDefaultPolicy(builder =>
             {
                 builder
+                   //.AllowAnyMethod()
+                   //.AllowAnyHeader()
+                   //.WithExposedHeaders("Content-Disposition")
+                   //.SetIsOriginAllowed(x => true)
+                   //.AllowCredentials();
+                   .WithOrigins("http://localhost:5173") // <- jawnie dozwolony frontend
                    .AllowAnyMethod()
                    .AllowAnyHeader()
-                   .WithExposedHeaders("Content-Disposition")
-                   .SetIsOriginAllowed(x => true)
-                   .AllowCredentials();
+                   .AllowCredentials()
+                   .WithExposedHeaders("Content-Disposition");
             }));
         }
     }
