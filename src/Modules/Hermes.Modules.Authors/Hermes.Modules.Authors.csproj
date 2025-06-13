@@ -7,18 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="MediatR" Version="12.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Hermes.Modules.Shared\Hermes.Modules.Shared.csproj" />
-    <ProjectReference Include="..\..\Hermes.Domain\Hermes.Domain.csproj" />
-    <ProjectReference Include="..\..\Hermes.Shared\Hermes.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Queries\GetBookByAuthor\" />
+    <ProjectReference Include="..\Hermes.Modules.Books\Hermes.Modules.Books.csproj" />
   </ItemGroup>
 
 </Project>

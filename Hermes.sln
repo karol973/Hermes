@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Modules.Shared", "He
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.Modules.Books", "src\Modules\Hermes.Modules.Books\Hermes.Modules.Books.csproj", "{486E93BB-CFEA-47D1-82DE-9672E16ABBC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.Modules.Authors", "src\Modules\Hermes.Modules.Authors\Hermes.Modules.Authors.csproj", "{53439487-BC4E-4E04-9CBA-18693BB3AF33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{486E93BB-CFEA-47D1-82DE-9672E16ABBC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{486E93BB-CFEA-47D1-82DE-9672E16ABBC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{486E93BB-CFEA-47D1-82DE-9672E16ABBC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53439487-BC4E-4E04-9CBA-18693BB3AF33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53439487-BC4E-4E04-9CBA-18693BB3AF33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53439487-BC4E-4E04-9CBA-18693BB3AF33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53439487-BC4E-4E04-9CBA-18693BB3AF33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{434CF08A-E0C8-4A82-9C8F-B0443000AF80} = {1E329695-8A85-4672-A903-327B96EEACE1}
 		{40684C31-3C48-4ECA-9BEA-45DCB7FBA689} = {1E329695-8A85-4672-A903-327B96EEACE1}
 		{486E93BB-CFEA-47D1-82DE-9672E16ABBC3} = {1E329695-8A85-4672-A903-327B96EEACE1}
+		{53439487-BC4E-4E04-9CBA-18693BB3AF33} = {1E329695-8A85-4672-A903-327B96EEACE1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C9070DB-B614-4475-83A9-5C8A9A835FC5}
