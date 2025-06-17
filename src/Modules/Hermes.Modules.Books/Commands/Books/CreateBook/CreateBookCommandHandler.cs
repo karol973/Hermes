@@ -19,18 +19,38 @@ namespace Hermes.Modules.Books.Commands.Books.CreateBook
         {
             bool alreadyExists = await _context.Books.AnyAsync(b => b.Name == request.Name, cancellationToken);
 
+            DateTime currentDate = await _dateTimeProvider.GetDateTimeAsync(cancellationToken);
+
+
             if (alreadyExists)
             {
                 return Response.Failure($"Book with name '{request.Name}' already exists.");
             }
+            var existingAuthor = await _context.Authors
+                .FirstOrDefaultAsync(a =>
+                a.Name == request.AuthorName &&
+                a.Surname == request.AuthorSurname,
+                cancellationToken);
 
-            DateTime currentDate = await _dateTimeProvider.GetDateTimeAsync(cancellationToken);
+            if (existingAuthor == null)
+            {
+                existingAuthor = new Author
+                {
+                    Name = request.AuthorName,
+                    Surname = request.AuthorSurname,
+                    CreateDate = currentDate
+                };
+
+                _context.Authors.Add(existingAuthor);
+                await _context.SaveChangesAsync(cancellationToken);
+            }
+
 
             Book bookToCreate = new Book
             {
                 Name = request.Name,
                 PublishYear = request.PublishYear,
-                AuthorId = request.AuthorId,
+                AuthorId = existingAuthor.Id,
                 Price = request.Price,
                 BookImage = request.BookImage,
                 IsAvailable = true,
@@ -38,7 +58,7 @@ namespace Hermes.Modules.Books.Commands.Books.CreateBook
                 PublisherId = request.PublisherId,
                 CreateDate = currentDate,
                 Quantity = request.Quantity,
-                AntiqueShopId = request.AntiqueShopId,
+                AntiqueShopId = 1,
             };
 
             await _context.Books.AddAsync(bookToCreate);
