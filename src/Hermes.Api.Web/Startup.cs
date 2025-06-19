@@ -13,6 +13,9 @@ using Hermes.Modules.Books.Queries.GetBookCategory;
 using Hermes.Modules.Authors.Queries.GetAllAuthors;
 using Hermes.Modules.Administration.Queries.GetAllUsers;
 using Hermes.Modules.Books.Queries.GetBookByCategory;
+using Hermes.Modules.Users.Queries.AuthenticateUser;
+using Hermes.Api.Web.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace HermesWebApi;
 
@@ -46,7 +49,19 @@ public class Startup
 
         services.AddCorsSettings();
         services.AddSwaggerDocument();
-        services.AddAuthentication(IISDefaults.AuthenticationScheme);
+        services.AddAuthentication("Cookies")
+            .AddCookie("Cookies", options =>
+        {
+            options.LoginPath = "/account/login";
+            options.AccessDeniedPath = "/account/access-denied";
+            options.EventsType = typeof(AuthenticationEvents);
+            options.ExpireTimeSpan = TimeSpan.FromMinutes(30);  
+            options.SlidingExpiration = true;
+        });
+
+        services.AddScoped<AuthenticationEvents>();
+
+
         services.AddAuthorization();
         services.AddApplicationOptions(Configuration);
         services.AddMediatR(cfg =>
@@ -57,11 +72,12 @@ public class Startup
             cfg.RegisterServicesFromAssembly(typeof(GetBookCategoryQueryHandler).Assembly);
             cfg.RegisterServicesFromAssembly(typeof(GetAllAuthorsQueryHandler).Assembly);
             cfg.RegisterServicesFromAssembly(typeof(GetBookByCategoryQueryHandler).Assembly);
+            cfg.RegisterServicesFromAssembly(typeof(AuthenticateUserQueryHandler).Assembly);
 
         });
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         services.AddScoped<IDateTimeProvider, DateTimeProvider>();
-
+        services.AddScoped<IAuthenticationHandler, AuthenticationHandler>();
 
         services.AddScoped<ApiKeyAuthorizationFilter>();
     }
