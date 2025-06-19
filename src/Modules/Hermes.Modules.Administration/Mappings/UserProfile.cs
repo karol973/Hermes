@@ -6,6 +6,7 @@ using Hermes.Modules.Shared;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Hermes.Shared.Enums;
 using System.Threading.Tasks;
 
 namespace Hermes.Modules.Administration.Mappings
@@ -14,8 +15,8 @@ namespace Hermes.Modules.Administration.Mappings
     {
         public UserProfile()
         {
-            //CreateMap<User, UserDto>()
-            //    .ForMember(dest => dest.Role, opt => opt.MapFrom((src, dest) => src.Role.GetDescription()));
+            CreateMap<User, UserDto>()
+                .ForMember(dest => dest.Role, opt => opt.MapFrom((src, dest) => src.Role.GetDescription()));
 
             CreateMap<Address, AddressDto>();
 
