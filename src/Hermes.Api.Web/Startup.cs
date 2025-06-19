@@ -12,6 +12,7 @@ using Hermes.Modules.Books.Queries.GetAllBooks;
 using Hermes.Modules.Books.Queries.GetBookCategory;
 using Hermes.Modules.Authors.Queries.GetAllAuthors;
 using Hermes.Modules.Administration.Queries.GetAllUsers;
+using Hermes.Modules.Books.Queries.GetBookByCategory;
 
 namespace HermesWebApi;
 
@@ -55,6 +56,7 @@ public class Startup
             cfg.RegisterServicesFromAssembly(typeof(GetAllBooksQueryHandler).Assembly);
             cfg.RegisterServicesFromAssembly(typeof(GetBookCategoryQueryHandler).Assembly);
             cfg.RegisterServicesFromAssembly(typeof(GetAllAuthorsQueryHandler).Assembly);
+            cfg.RegisterServicesFromAssembly(typeof(GetBookByCategoryQueryHandler).Assembly);
 
         });
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

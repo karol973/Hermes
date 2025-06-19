@@ -2,6 +2,7 @@
 using Hermes.Modules.Books.Queries.GetAllBooks;
 using Hermes.Modules.Books.Queries.GetBookById;
 using Hermes.Modules.Books.Queries.GetBookCategory;
+using Hermes.Modules.Books.Queries.GetBooksByCategory;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,13 @@ namespace Hermes.Api.Web.Controllers
         public Task<IActionResult> GetBookCategoryAsync()
         {
             return HandleAsync(new GetBookCategoryQuery());
+        } 
+        
+        [HttpGet("booksbycategory")]
+        [AllowAnonymous]
+        public Task<IActionResult> GetBookByCategoryQuery([FromQuery] GetBookByCategoryQuery query)
+        {
+            return HandleAsync(query);
         }
 
         [HttpGet("{id:int}/bookdetails")]
