@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using Hermes.Application.DTOs;
 using Hermes.Domain.Entities;
 using Hermes.Modules.Shared.Handlers;
@@ -11,7 +7,7 @@ using Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hermes.Modules.Users.Queries
+namespace Hermes.Modules.Administration.Queries.GetAllUsers
 {
     public sealed class GetAllUsersQueryHandler : HandlerBase, IRequestHandler<GetAllUsersQuery, IEnumerable<UserDto>>
     {

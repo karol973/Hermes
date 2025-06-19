@@ -11,12 +11,12 @@ namespace Hermes.Domain.Entities
         public int Quantity { get; set; }
         public bool IsAvailable { get; set; }
         public int AuthorId { get; set; }
-        public byte[] BookImage { get; set; }
         public Author Author { get; set; }
+        public byte[] BookImage { get; set; }
         public int PublisherId { get; set; }
         public Publisher Publisher { get; set; }
         public BookCategory Category { get; set; }
-        public int AntiqueShopId { get; set; }           
+        public int AntiqueShopId { get; set; }
         public AntiqueShop AntiqueShop { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
         public Book()

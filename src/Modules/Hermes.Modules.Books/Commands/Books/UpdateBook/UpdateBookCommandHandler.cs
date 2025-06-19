@@ -11,20 +11,44 @@ namespace Hermes.Modules.Books.Commands.Books.UpdateBook
 {
     public class UpdateBookCommandHandler : HandlerBase, IRequestHandler<UpdateBookCommand, Response>
     {
-        public UpdateBookCommandHandler(IMapper mapper, IDateTimeProvider dateTimeProvider, AntiqueShopDbContext antiqueShopDbContext) : base(mapper, dateTimeProvider, antiqueShopDbContext)
+        public UpdateBookCommandHandler(
+            IMapper mapper,
+            IDateTimeProvider dateTimeProvider,
+            AntiqueShopDbContext antiqueShopDbContext
+        ) : base(mapper, dateTimeProvider, antiqueShopDbContext)
         {
         }
 
         public async Task<Response> Handle(UpdateBookCommand request, CancellationToken cancellationToken)
         {
-            Book bookToUpdate = await _context.Books.FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
+            Book? bookToUpdate = await _context.Books
+                .FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
 
             if (bookToUpdate is null)
             {
-                return Response.Failure($"Book with name '{request.Id}' and Id already exists.");
+                return Response.Failure($"Book with Id '{request.Id}' was not found.");
             }
 
             DateTime currentDate = await _dateTimeProvider.GetDateTimeAsync(cancellationToken);
+
+            Author? existingAuthor = await _context.Authors
+                .FirstOrDefaultAsync(a =>
+                    a.Name == request.AuthorName &&
+                    a.Surname == request.AuthorSurname,
+                    cancellationToken);
+
+            if (existingAuthor == null)
+            {
+                existingAuthor = new Author
+                {
+                    Name = request.AuthorName,
+                    Surname = request.AuthorSurname,
+                    CreateDate = currentDate
+                };
+
+                _context.Authors.Add(existingAuthor);
+                await _context.SaveChangesAsync(cancellationToken);
+            }
 
             bookToUpdate.Name = request.Name;
             bookToUpdate.PublishYear = request.PublishYear;
@@ -32,16 +56,15 @@ namespace Hermes.Modules.Books.Commands.Books.UpdateBook
             bookToUpdate.Quantity = request.Quantity;
             bookToUpdate.IsAvailable = request.IsAvailable;
             bookToUpdate.BookImage = request.BookImage;
-            bookToUpdate.AuthorId = request.AuthorId;
+            bookToUpdate.AuthorId = existingAuthor.Id;
             bookToUpdate.PublisherId = request.PublisherId;
             bookToUpdate.Category = request.Category;
             bookToUpdate.AntiqueShopId = request.AntiqueShopId;
             bookToUpdate.ModifyDate = currentDate;
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
 
             return Response.Success(bookToUpdate.Id);
-
         }
     }
 }

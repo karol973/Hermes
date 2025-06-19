@@ -8,8 +8,8 @@ namespace Hermes.Modules.Authors.Mappings
     {
         public AuthorProfile()
         {
-            CreateMap<Author, AuthorDto>()
-                .ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.Books));
+            CreateMap<Author, AuthorDto>();
+                //.ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.Books));
 
         }
     }

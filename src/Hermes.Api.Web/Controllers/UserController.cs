@@ -1,4 +1,5 @@
 ﻿using Hermes.Domain.Enums;
+using Hermes.Modules.Administration.Queries.GetAllUsers;
 using Hermes.Modules.Users.Commands.Users.CreateUser;
 using Hermes.Modules.Users.Queries;
 using HermesWebApi.Configuration.Filters;

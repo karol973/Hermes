@@ -14,6 +14,8 @@ namespace Hermes.Modules.Books.Commands.Books.UpdateBook
         public bool IsAvailable { get; set; }
         public byte[]? BookImage { get; set; }
         public int AuthorId { get; set; }
+        public string AuthorName { get; set; } = string.Empty;
+        public string AuthorSurname { get; set; } = string.Empty;
         public int PublisherId { get; set; }
         public BookCategory Category { get; set; } = BookCategory.None;
         public int AntiqueShopId { get; set; } = 1;

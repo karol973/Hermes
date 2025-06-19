@@ -1,4 +1,5 @@
-﻿using Hermes.Domain.Enums;
+﻿using Hermes.Domain.Entities;
+using Hermes.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,9 @@ namespace Hermes.Modules.Books.Models
         public int Quantity { get; set; }
         public bool IsAvailable { get; set; }
         public int AuthorId { get; set; }
+        public Author Author { get; set; }
         public string AuthorName { get; set; } = string.Empty;  
+        public string AuthorSurname { get; set; } = string.Empty;  
         public byte[]? BookImage { get; set; }
         public int PublisherId { get; set; }
         public string PublisherName { get; set; } = string.Empty;  

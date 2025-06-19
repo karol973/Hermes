@@ -13,13 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Infrastructure", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{1E329695-8A85-4672-A903-327B96EEACE1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Modules.Users", "src\Modules\Hermes.Modules.Administration\Hermes.Modules.Users.csproj", "{434CF08A-E0C8-4A82-9C8F-B0443000AF80}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Modules.Shared", "Hermes.Modules.Shared\Hermes.Modules.Shared.csproj", "{40684C31-3C48-4ECA-9BEA-45DCB7FBA689}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.Modules.Books", "src\Modules\Hermes.Modules.Books\Hermes.Modules.Books.csproj", "{486E93BB-CFEA-47D1-82DE-9672E16ABBC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Modules.Books", "src\Modules\Hermes.Modules.Books\Hermes.Modules.Books.csproj", "{486E93BB-CFEA-47D1-82DE-9672E16ABBC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.Modules.Authors", "src\Modules\Hermes.Modules.Authors\Hermes.Modules.Authors.csproj", "{53439487-BC4E-4E04-9CBA-18693BB3AF33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Modules.Authors", "src\Modules\Hermes.Modules.Authors\Hermes.Modules.Authors.csproj", "{53439487-BC4E-4E04-9CBA-18693BB3AF33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.Modules.Administration", "src\Modules\Hermes.Modules.Administration\Hermes.Modules.Administration.csproj", "{C20FAE11-DFF8-4726-A595-A091607ED7BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +43,6 @@ Global
 		{1C432A9C-267F-4359-8CF7-F671DE65727D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C432A9C-267F-4359-8CF7-F671DE65727D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C432A9C-267F-4359-8CF7-F671DE65727D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{434CF08A-E0C8-4A82-9C8F-B0443000AF80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{434CF08A-E0C8-4A82-9C8F-B0443000AF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{434CF08A-E0C8-4A82-9C8F-B0443000AF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{434CF08A-E0C8-4A82-9C8F-B0443000AF80}.Release|Any CPU.Build.0 = Release|Any CPU
 		{40684C31-3C48-4ECA-9BEA-45DCB7FBA689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{40684C31-3C48-4ECA-9BEA-45DCB7FBA689}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40684C31-3C48-4ECA-9BEA-45DCB7FBA689}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,15 +55,19 @@ Global
 		{53439487-BC4E-4E04-9CBA-18693BB3AF33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53439487-BC4E-4E04-9CBA-18693BB3AF33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53439487-BC4E-4E04-9CBA-18693BB3AF33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C20FAE11-DFF8-4726-A595-A091607ED7BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C20FAE11-DFF8-4726-A595-A091607ED7BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C20FAE11-DFF8-4726-A595-A091607ED7BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C20FAE11-DFF8-4726-A595-A091607ED7BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{434CF08A-E0C8-4A82-9C8F-B0443000AF80} = {1E329695-8A85-4672-A903-327B96EEACE1}
 		{40684C31-3C48-4ECA-9BEA-45DCB7FBA689} = {1E329695-8A85-4672-A903-327B96EEACE1}
 		{486E93BB-CFEA-47D1-82DE-9672E16ABBC3} = {1E329695-8A85-4672-A903-327B96EEACE1}
 		{53439487-BC4E-4E04-9CBA-18693BB3AF33} = {1E329695-8A85-4672-A903-327B96EEACE1}
+		{C20FAE11-DFF8-4726-A595-A091607ED7BC} = {1E329695-8A85-4672-A903-327B96EEACE1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C9070DB-B614-4475-83A9-5C8A9A835FC5}
