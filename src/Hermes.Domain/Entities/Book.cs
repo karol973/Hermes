@@ -12,7 +12,7 @@ namespace Hermes.Domain.Entities
         public bool IsAvailable { get; set; }
         public int AuthorId { get; set; }
         public Author Author { get; set; }
-        public byte[] BookImage { get; set; }
+        public byte[]? BookImage { get; set; }
         public int PublisherId { get; set; }
         public Publisher Publisher { get; set; }
         public BookCategory Category { get; set; }
