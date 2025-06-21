@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using Hermes.Api.Web.Configuration.Options;
 using Hermes.Modules.Administration.Queries.GetUserByLogin;
+using System.Security.Claims;
 
 namespace Hermes.Api.Web.Authentication
 {
@@ -47,9 +48,34 @@ namespace Hermes.Api.Web.Authentication
 
         public override async Task ValidatePrincipal(CookieValidatePrincipalContext context)
         {
-            UserDto user = await _mediator.Send(new GetUserByLoginQuery()
+            //var userIdClaim = context.Principal.FindFirst(ClaimTypes.NameIdentifier);
+
+            //UserDto user = await _mediator.Send(new GetUserByLoginQuery()
+            //{
+            //    Username = context.Principal.Identity.Name,
+            // });
+
+            //if (user?.IsActive == true)
+            //{
+            //    return;
+            //}
+
+            //context.RejectPrincipal();
+            //await context.HttpContext.SignOutAsync();
+
+            var userIdClaim = context.Principal.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
             {
-                Username = context.Principal.Identity.Name
+                context.RejectPrincipal();
+                await context.HttpContext.SignOutAsync();
+                return;
+            }
+
+            // Użyj ID zamiast nazwy użytkownika do zapytania
+            UserDto user = await _mediator.Send(new GetUserByLoginQuery
+            {
+                Id = userId  
             });
 
             if (user?.IsActive == true)

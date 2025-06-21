@@ -35,7 +35,8 @@ namespace Hermes.Api.Web.Authentication
 
             IEnumerable<Claim> claims = new[]
             {
-            new Claim(ClaimTypes.Name, query.UserName)
+            new Claim(ClaimTypes.Name, query.UserName),
+            new Claim(ClaimTypes.NameIdentifier, authStatus.Id.ToString())
          };
 
             ClaimsIdentity identity = new(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -47,7 +48,7 @@ namespace Hermes.Api.Web.Authentication
 
             await _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), properties);
 
-            return AuthenticationResult.Success(authStatus.Username, authStatus.Role);
+            return AuthenticationResult.Success(authStatus.Id, authStatus.Username, authStatus.Role);
         }
 
         public Task SignOutAsync()
