@@ -37,23 +37,4 @@ export default class AccountService {
  
     return toUpdateResultAsync(response);
       }
-//    public async changePasswordAsync(id: number, newPassword: string): Promise<void> {
-      
-//       const command: ChangePasswordCommand = {
-//           id: id,
-//           passwordHash: newPassword
-//       };
-  
-//       try {
-//           const response = await patchAsync<CommandResponse>(`account/${id}`, command);
-//           console.log('ChangePassword response:', response);
-          
-//           if (!response.isSuccess) {
-//               throw new Error(response.message || "Password change failed");
-//           }
-//       } catch (error) {
-//           console.error('Error changing password:', error);
-//           throw error;
-//       }
-//   }
-}
+   }

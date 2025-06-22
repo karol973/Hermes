@@ -30,7 +30,7 @@ const Mysearch = (props) => {
       }));
       setCategoryItems(categoryMenuItems);
     } catch (error) {
-      console.error('Błąd ładowania kategorii:', error);
+      console.error('Błąd wczystywania kategorii:', error);
     } finally {
       setLoadingCategories(false);
     }
@@ -46,7 +46,7 @@ const Mysearch = (props) => {
       }));
       setAuthorItems(authorMenuItems);
     } catch (error) {
-      console.error('Błąd ładowania autorów:', error);
+      console.error('Błąd wczytywania autorów:', error);
     } finally {
       setLoadingAuthors(false);
     }
@@ -58,7 +58,7 @@ const Mysearch = (props) => {
       const books = await bookService.getBookSByCategoryAsync(categoryId);
       props.onBooksLoaded?.(books);
     } catch (error) {
-      console.error('Błąd przy ładowaniu książek:', error);
+      console.error('Błąd wczytywania książek:', error);
     }
   };
 
@@ -68,7 +68,7 @@ const Mysearch = (props) => {
       const books = await bookService.getBooksByAuthorAsync(authorId);
       props.onBooksLoaded?.(books);
     } catch (error) {
-      console.error('Błąd przy ładowaniu książek autora:', error);
+      console.error('Błąd wczystywania książek autora:', error);
     }
   };
 

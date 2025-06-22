@@ -9,8 +9,11 @@ interface BookCardProps {
     category: string;
     price: number;
     authorName: string;
-    authorSurname: string
-   };
+    authorSurname: string;
+    bookImage?: string;
+    coverImageUrl?: string;
+  };
+  onBookUpdated?: () => void; 
 }
 
 const BookCard: React.FC<BookCardProps> = ({ card }) => (
@@ -20,12 +23,14 @@ const BookCard: React.FC<BookCardProps> = ({ card }) => (
     <Link to={`/card?id=${card.id}`}>
       <img
         width={200}
-        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+        src={card.bookImage 
+          ? `data:image/jpeg;base64,${card.bookImage}` 
+          : card.coverImageUrl || 'https://via.placeholder.com/400'}
         alt="Okładka"
       />
     </Link>
-     <p>{card.authorName} {card.authorSurname}</p>
-     <p>Cena {card.price} zł</p>
+    <p>{card.authorName} {card.authorSurname}</p>
+    <p>Cena {card.price} zł</p>
   </Card>
 );
 

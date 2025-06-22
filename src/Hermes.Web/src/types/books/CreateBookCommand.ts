@@ -13,4 +13,6 @@ export default interface CreateBookCommand {
     publisherName: string;
     category: BookCategory;
     antiqueShopId: number;
+    bookImage: string  
+
 }

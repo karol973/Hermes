@@ -5,7 +5,6 @@ import MainMenu from './mainmenu';
 import BookDetailsForm from './bookdetailsform';
 import BookService from '../services/BookService';
 import { useUser } from '../context/userContext';
-import { Role } from '../types/users/Role';
 
 const BookDetails = () => {
   const [searchParams] = useSearchParams();
@@ -14,9 +13,10 @@ const BookDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const { user } = useUser();
-  const canEdit = user && (user.role === Role.Admin || user.role === Role.SuperUser);
+  const [imageKey, setImageKey] = useState(Date.now());
+  const { user, isAdmin, isSuperUser } = useUser();
+  const canEdit = isAdmin || isSuperUser;
+  const canAddToCart = user !== null;
 
   const id = Number(searchParams.get("id"));
 
@@ -30,6 +30,7 @@ const BookDetails = () => {
       try {
         const data = await new BookService().getBookByIdAsync(id);
         setBook(data);
+        setImageKey(Date.now());
       } catch (err) {
         console.error('Błąd ładowania szczegółów książki:', err);
         setError("Nie udało się załadować danych książki.");
@@ -45,14 +46,26 @@ const BookDetails = () => {
   const handleCancel = () => setIsModalOpen(false);
 
   const handleUpdateSuccess = async () => {
-    setIsModalOpen(false);
-    message.success('Zaktualizowano dane książki.');
-    try {
-      const updatedBook = await new BookService().getBookByIdAsync(id);
-      setBook(updatedBook);
-    } catch (error) {
-      console.error('Błąd ponownego pobrania książki:', error);
+  setIsModalOpen(false);
+  message.success('Zaktualizowano dane książki');
+  try {
+    const updatedBook = await new BookService().getBookByIdAsync(id);
+    setBook(updatedBook);
+    if (props.onBookUpdated) {  
+      props.onBookUpdated();
     }
+  } catch (error) {
+    console.error( error);
+  }
+};
+
+  const handleAddToCart = () => {
+    if (!user) {
+      message.warning('Musisz się zalogować, aby dodać produkt do koszyka');
+      navigate('/login');
+      return;
+    }
+    message.success('Dodano ksiązke do koszyka');
   };
 
   if (loading) return <Spin style={{ margin: '2rem auto', display: 'block' }} />;
@@ -73,8 +86,11 @@ const BookDetails = () => {
         <div className='elementy-cardpage'>
           <Image.PreviewGroup>
             <Image
+              key={imageKey}
               width={400}
-              src={book.coverImageUrl || 'https://via.placeholder.com/400'}
+              src={book.bookImage 
+                ? `data:image/jpeg;base64,${book.bookImage}`
+                : book.bookImage || 'https://via.placeholder.com/400'}
               alt="okładka"
             />
           </Image.PreviewGroup>
@@ -97,7 +113,13 @@ const BookDetails = () => {
                 Edytuj
               </Button>
             )}
-            <Button type="primary">Dodaj do koszyka</Button>
+            <Button 
+              type="primary" 
+              onClick={handleAddToCart}
+              disabled={!book.isAvailable}
+            >
+              Dodaj do koszyka
+            </Button>
           </div>
         </div>
 

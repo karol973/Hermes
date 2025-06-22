@@ -1,12 +1,6 @@
-import React, { useEffect } from 'react';
-import {
-  Button,
-  Form,
-  Input,
-  InputNumber,
-  Select,
-  message,
-} from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Form, Input, InputNumber, Select, message, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import BookCategory from '../types/books/BookCategory';
 import BookService from '../services/bookService';
 
@@ -24,6 +18,8 @@ const categoryNameToEnum = (name) => {
 
 const BookDetailsForm = ({ isEditMode, book, onSuccessClose, onBookUpdated, onBookAdded }) => {
   const [form] = Form.useForm();
+  const [fileList, setFileList] = useState([]);
+  const [uploading, setUploading] = useState(false);
   const bookService = new BookService();
 
   useEffect(() => {
@@ -36,13 +32,59 @@ const BookDetailsForm = ({ isEditMode, book, onSuccessClose, onBookUpdated, onBo
         ...book,
         category: categoryValue,
       });
+
+      if (book.bookImage) {
+        setFileList([{
+          uid: '-1',
+          name: 'book-cover.jpg',
+          status: 'done',
+          url: `data:image/jpeg;base64,${book.bookImage}`,
+        }]);
+      }
     }
   }, [book, isEditMode, form]);
 
+  const beforeUpload = (file) => {
+    const isImage = file.type.startsWith('image/');
+    if (!isImage) {
+      message.error('Możesz przesłać tylko pliki graficzne!');
+    }
+    const isLt5M = file.size / 1024 / 1024 < 5;
+    if (!isLt5M) {
+      message.error('Obraz musi być mniejszy niż 5MB!');
+    }
+    return isImage && isLt5M;
+  };
+
+  const handleUploadChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
+
+  const convertImageToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const result = reader.result?.toString().split(',')[1] || '';
+        resolve(result);
+      };
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
   const handleFinish = async (values) => {
+    setUploading(true);
+    
+    let imageBase64 = '';
+    if (fileList.length > 0 && fileList[0].originFileObj) {
+      imageBase64 = await convertImageToBase64(fileList[0].originFileObj);
+    } else if (book?.bookImage && fileList.length > 0) {
+      imageBase64 = book.bookImage;
+    }
+
     const command = {
       ...values,
-      bookImage: '',
+      bookImage: imageBase64,
       antiqueShopId: 1,
       isAvailable: true,
     };
@@ -57,12 +99,15 @@ const BookDetailsForm = ({ isEditMode, book, onSuccessClose, onBookUpdated, onBo
         await bookService.createBookAsync(command);
         message.success('Książka została dodana!');
         form.resetFields();
+        setFileList([]);
         if (onSuccessClose) onSuccessClose();
         if (onBookAdded) onBookAdded();
       }
     } catch (error) {
       console.error('Błąd przy zapisie książki:', error);
       message.error('Wystąpił błąd przy zapisie książki.');
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -113,8 +158,21 @@ const BookDetailsForm = ({ isEditMode, book, onSuccessClose, onBookUpdated, onBo
         <InputNumber min={1} style={{ width: '100%' }} />
       </Form.Item>
 
+      <Form.Item label="Okładka" name="bookImage">
+        <Upload
+          listType="picture"
+          fileList={fileList}
+          beforeUpload={beforeUpload}
+          onChange={handleUploadChange}
+          maxCount={1}
+          accept="image/*"
+        >
+          <Button icon={<UploadOutlined />}>Wybierz zdjęcie</Button>
+        </Upload>
+      </Form.Item>
+
       <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={uploading}>
           Zatwierdź
         </Button>
       </Form.Item>

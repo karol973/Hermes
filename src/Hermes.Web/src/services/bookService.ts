@@ -68,7 +68,8 @@ export default class BookService {
             publisherId: book.publisherId,
             authorId: book.authorId,
             authorName: book.authorName,
-            authorSurname: book.authorSurname
+            authorSurname: book.authorSurname,
+
         };
         const response = await patchAsync<CommandResponse>(`books/${id}`, command)
               return toUpdateResultAsync(response);
@@ -88,7 +89,9 @@ export default class BookService {
             publishYear: book.publishYear,
             publisherName: book.publisherName,
             price: book.price,
-            quantity: book.quantity
+            quantity: book.quantity,
+            bookImage: book.bookImage  
+
         }
         const response: ApiResponse<CommandResponse> = await postAsync<CommandResponse>('books', command);
         return toCreateResultAsync(response, book)
