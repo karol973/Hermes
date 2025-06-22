@@ -32,15 +32,16 @@ namespace Hermes.Modules.Users.Commands.Users.CreateUser
             User userToCreate = new User
             {
                 Username = request.Username,
-                PasswordHash = request.Password,
-                Role = request.Role,
+                PasswordHash = request.PasswordHash,
+                Role = Domain.Enums.Role.User,
                 IsActive = true,
             };
 
-            bool hasAddressData = !string.IsNullOrWhiteSpace(request.Address.Street) &&
-                     !string.IsNullOrWhiteSpace(request.Address.City) &&
-                     !string.IsNullOrWhiteSpace(request.Address.PostalCode) &&
-                     !string.IsNullOrWhiteSpace(request.Address.Country);
+            bool hasAddressData = request.Address != null &&
+                      !string.IsNullOrWhiteSpace(request.Address.Street) &&
+                      !string.IsNullOrWhiteSpace(request.Address.City) &&
+                      !string.IsNullOrWhiteSpace(request.Address.PostalCode) &&
+                      !string.IsNullOrWhiteSpace(request.Address.Country);
 
             if (hasAddressData)
             {
