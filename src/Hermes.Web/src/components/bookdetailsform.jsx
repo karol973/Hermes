@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, InputNumber, Select, message, Upload } from 'antd';
+import { Button, Form, Input, InputNumber, Select, message, Upload, Switch } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import BookCategory from '../types/books/BookCategory';
 import BookService from '../services/bookService';
@@ -31,6 +31,7 @@ const BookDetailsForm = ({ isEditMode, book, onSuccessClose, onBookUpdated, onBo
       form.setFieldsValue({
         ...book,
         category: categoryValue,
+        isAvailable: book.isAvailable,
       });
 
       if (book.bookImage) {
@@ -46,13 +47,9 @@ const BookDetailsForm = ({ isEditMode, book, onSuccessClose, onBookUpdated, onBo
 
   const beforeUpload = (file) => {
     const isImage = file.type.startsWith('image/');
-    if (!isImage) {
-      message.error('Możesz przesłać tylko pliki graficzne!');
-    }
+    if (!isImage) message.error('Możesz przesłać tylko pliki graficzne!');
     const isLt5M = file.size / 1024 / 1024 < 5;
-    if (!isLt5M) {
-      message.error('Obraz musi być mniejszy niż 5MB!');
-    }
+    if (!isLt5M) message.error('Obraz musi być mniejszy niż 5MB!');
     return isImage && isLt5M;
   };
 
@@ -73,8 +70,21 @@ const BookDetailsForm = ({ isEditMode, book, onSuccessClose, onBookUpdated, onBo
   };
 
   const handleFinish = async (values) => {
+    const quantity = values.quantity;
+    let isAvailable = isEditMode ? values.isAvailable : quantity > 0;
+
+    if (isEditMode) {
+      if (quantity > 0 && !isAvailable) {
+        message.error('Książka, która jest na stanie nie może być niedostępna');
+        return;
+      }
+      if (quantity === 0 && isAvailable) {
+        message.error('Książka, która została wyprzedana nie może być dostępna');
+        return;
+      }
+    }
+
     setUploading(true);
-    
     let imageBase64 = '';
     if (fileList.length > 0 && fileList[0].originFileObj) {
       imageBase64 = await convertImageToBase64(fileList[0].originFileObj);
@@ -84,17 +94,17 @@ const BookDetailsForm = ({ isEditMode, book, onSuccessClose, onBookUpdated, onBo
 
     const command = {
       ...values,
+      isAvailable,
       bookImage: imageBase64,
       antiqueShopId: 1,
-      isAvailable: true,
     };
 
     try {
-      if (isEditMode && book && book.id) {
+      if (isEditMode && book?.id) {
         await bookService.updateBookAsync(book.id, command);
         message.success('Zmiany zostały zapisane!');
         if (onSuccessClose) onSuccessClose();
-        if (onBookUpdated) onBookUpdated(); 
+        if (onBookUpdated) onBookUpdated();
       } else {
         await bookService.createBookAsync(command);
         message.success('Książka została dodana!');
@@ -143,9 +153,7 @@ const BookDetailsForm = ({ isEditMode, book, onSuccessClose, onBookUpdated, onBo
           {Object.entries(BookCategory)
             .filter(([_, val]) => typeof val === 'number')
             .map(([key, val]) => (
-              <Option key={val} value={val}>
-                {key}
-              </Option>
+              <Option key={val} value={val}>{key}</Option>
             ))}
         </Select>
       </Form.Item>
@@ -155,8 +163,14 @@ const BookDetailsForm = ({ isEditMode, book, onSuccessClose, onBookUpdated, onBo
       </Form.Item>
 
       <Form.Item label="Ilość" name="quantity" rules={[{ required: true, message: 'Wprowadź ilość' }]}>
-        <InputNumber min={1} style={{ width: '100%' }} />
+        <InputNumber min={0} style={{ width: '100%' }} />
       </Form.Item>
+
+      {isEditMode && (
+        <Form.Item label="Dostępność" name="isAvailable" valuePropName="checked">
+          <Switch checkedChildren="Dostępna" unCheckedChildren="Brak" />
+        </Form.Item>
+      )}
 
       <Form.Item label="Okładka" name="bookImage">
         <Upload
@@ -181,3 +195,4 @@ const BookDetailsForm = ({ isEditMode, book, onSuccessClose, onBookUpdated, onBo
 };
 
 export default BookDetailsForm;
+
