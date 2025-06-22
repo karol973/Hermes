@@ -13,6 +13,7 @@ namespace Hermes.Modules.Users.Models.Users
       }
       public bool IsSuccess { get; set; }
       public string Username { get; init; }
+      public int Id { get; init; }
       public Role Role { get; init; }
    }
 }
