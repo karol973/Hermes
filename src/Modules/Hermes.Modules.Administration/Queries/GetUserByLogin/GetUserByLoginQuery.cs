@@ -10,6 +10,7 @@ namespace Hermes.Modules.Administration.Queries.GetUserByLogin
 {
     public sealed class GetUserByLoginQuery : IRequest<UserDto>
     {
-       public string Username { get; init; }
+       //public string Username { get; init; }
+       public int Id { get; set; }
     }
 }

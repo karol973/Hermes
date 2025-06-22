@@ -16,6 +16,7 @@ namespace Hermes.Modules.Books.Commands.Books.CreateBook
         public string AuthorName { get; set; } = string.Empty;
         public string AuthorSurname { get; set; } = string.Empty;
         public int PublisherId { get; set; }
+        public string PublisherName { get; set; } = string.Empty;
         public BookCategory Category { get; set; } = BookCategory.None;
         public int AntiqueShopId { get; set; } = 1;
     }

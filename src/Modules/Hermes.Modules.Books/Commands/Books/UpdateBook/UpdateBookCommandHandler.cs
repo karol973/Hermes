@@ -43,10 +43,25 @@ namespace Hermes.Modules.Books.Commands.Books.UpdateBook
                 {
                     Name = request.AuthorName,
                     Surname = request.AuthorSurname,
-                    CreateDate = currentDate
+                    ModifyDate = currentDate
                 };
 
                 _context.Authors.Add(existingAuthor);
+                await _context.SaveChangesAsync(cancellationToken);
+            }
+
+            Publisher? existingPublisher = await _context.Publishers
+                .FirstOrDefaultAsync(p => p.Name == request.PublisherName, cancellationToken);
+
+            if (existingPublisher == null)
+            {
+                existingPublisher = new Publisher
+                {
+                    Name = request.PublisherName,
+                    ModifyDate = currentDate
+                };
+
+                _context.Publishers.Add(existingPublisher);
                 await _context.SaveChangesAsync(cancellationToken);
             }
 
@@ -57,7 +72,7 @@ namespace Hermes.Modules.Books.Commands.Books.UpdateBook
             bookToUpdate.IsAvailable = request.IsAvailable;
             bookToUpdate.BookImage = request.BookImage;
             bookToUpdate.AuthorId = existingAuthor.Id;
-            bookToUpdate.PublisherId = request.PublisherId;
+            bookToUpdate.PublisherId = existingPublisher.Id;
             bookToUpdate.Category = request.Category;
             bookToUpdate.AntiqueShopId = request.AntiqueShopId;
             bookToUpdate.ModifyDate = currentDate;

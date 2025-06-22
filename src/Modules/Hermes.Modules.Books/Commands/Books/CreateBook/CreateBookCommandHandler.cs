@@ -45,6 +45,20 @@ namespace Hermes.Modules.Books.Commands.Books.CreateBook
                 await _context.SaveChangesAsync(cancellationToken);
             }
 
+            Publisher? existingPublisher = await _context.Publishers
+                .FirstOrDefaultAsync(p => p.Name == request.PublisherName, cancellationToken);
+
+            if (existingPublisher == null)
+            {
+                existingPublisher = new Publisher
+                {
+                    Name = request.PublisherName,
+                    CreateDate = currentDate
+                };
+
+                _context.Publishers.Add(existingPublisher);
+                await _context.SaveChangesAsync(cancellationToken);
+            }
 
             Book bookToCreate = new Book
             {
@@ -55,7 +69,7 @@ namespace Hermes.Modules.Books.Commands.Books.CreateBook
                 BookImage = request.BookImage,
                 IsAvailable = true,
                 Category = request.Category,
-                PublisherId = request.PublisherId,
+                PublisherId = existingPublisher.Id,
                 CreateDate = currentDate,
                 Quantity = request.Quantity,
                 AntiqueShopId = 1,

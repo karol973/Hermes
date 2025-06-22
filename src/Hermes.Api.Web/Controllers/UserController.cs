@@ -1,4 +1,6 @@
 ﻿using Hermes.Domain.Enums;
+using Hermes.Modules.Administration.Commands.Users.ChangePassword;
+using Hermes.Modules.Administration.Commands.Users.UpdateUser;
 using Hermes.Modules.Administration.Queries.GetAllUsers;
 using Hermes.Modules.Users.Commands.Users.CreateUser;
 using Hermes.Modules.Users.Queries;
@@ -22,10 +24,18 @@ namespace Hermes.Api.Web.Controllers
         {
             return HandleAsync(new GetAllUsersQuery());
         }
+        
         [HttpPost]
         [AllowAnonymous]
         public Task<IActionResult> CreateAsync([FromBody] CreateUserCommand command)
         {
+            return HandleAsync(command);
+        }
+        [HttpPatch("{id:int}")]
+        [AllowAnonymous]
+        public Task<IActionResult> UpdateUserAsync(int id, [FromBody] UpdateUserCommand command)
+        {
+            command.Id = id;
             return HandleAsync(command);
         }
     }

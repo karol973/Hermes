@@ -19,7 +19,7 @@ namespace Hermes.Modules.Users.Queries.AuthenticateUser
         {
             User user = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.UserName, cancellationToken);
 
-            if (user?.IsActive != true)
+            if (user == null || user.PasswordHash != request.Password || !user.IsActive)
             {
                 return new AuthenticationStatus()
                 {
@@ -40,6 +40,7 @@ namespace Hermes.Modules.Users.Queries.AuthenticateUser
                 IsSuccess = true,
                 Username = user.Username,
                 Role = user.Role,
+                Id = user.Id
             };
         }
     }

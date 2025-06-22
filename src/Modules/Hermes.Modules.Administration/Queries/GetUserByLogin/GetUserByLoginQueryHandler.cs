@@ -22,7 +22,8 @@ namespace Hermes.Modules.Administration.Queries.GetUserByLogin
 
         public async Task<UserDto> Handle(GetUserByLoginQuery request, CancellationToken cancellationToken)
         {
-            User existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username, cancellationToken);
+            //User existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username, cancellationToken);
+            User existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
 
             return _mapper.Map<UserDto>(existingUser);
         }
