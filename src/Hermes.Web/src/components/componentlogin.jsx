@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Input, Button, notification, Modal, Form, Select, Switch } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import MainMenu from './mainmenu';
+import MainMenu from '../components/mainmenu';
 import AccountService from '../services/AccountService';
 import UserService from '../services/UserService';
-import { useUser } from '../context/userContext';
+import { useUser } from '../context/UserContext';
 import { Role } from '../types/users/Role';
 
 const { Option } = Select;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AudioOutlined, DownOutlined } from '@ant-design/icons';
 import { Input, Space, Button, Dropdown } from 'antd';
-import BookService from '../services/bookService';
+import BookService from '../services/BookService';
 import AuthorService from '../services/authorService';
 
 const { Search } = Input;
@@ -55,7 +55,7 @@ const Mysearch = (props) => {
   const handleCategoryClick = async (e) => {
     const categoryId = parseInt(e.key);
     try {
-      const books = await bookService.getBookSByCategoryAsync(categoryId);
+      const books = await bookService.getBooksByCategoryAsync(categoryId);
       props.onBooksLoaded?.(books);
     } catch (error) {
       console.error('Błąd wczytywania książek:', error);

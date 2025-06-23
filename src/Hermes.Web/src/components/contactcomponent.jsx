@@ -1,4 +1,4 @@
-import MainMenu from "./mainmenu"
+import MainMenu from '../components/mainmenu';
 import React from 'react';
 
 const Contact = () => {

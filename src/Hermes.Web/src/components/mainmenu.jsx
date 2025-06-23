@@ -1,157 +1,34 @@
-// import React, { useState } from 'react';
-// import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
-// import { Menu } from 'antd';
-// import baner from '../mainbaner.png';
-// import logo from '../logo.svg';
-// import { useNavigate } from 'react-router-dom';
-
- 
-// const items = [
-//   {
-//     label: 'Strona główna',
-//     key: 'mail',
-//   },
-
-//   {
-//     label: 'Katalog',
-//     key: 'SubMenu',
-//     // DODAC IKONE ROZWINIECIA
-//     children: [
-//       {
-//         type: 'group',
-//         children: [
-//           { label: 'Option 1', key: 'setting:1' },
-//           { label: 'Option 2', key: 'setting:2' },
-//         ],
-//       },
-
-
-//     ],
-//   },
-//   {
-//     label: 'Kontakt',
-//     key: 'kontakt',
-
-//   },
-//   {
-//     label: 'Konto',
-//     key: 'konto',
-//   },
-//   {
-//     label: 'Koszyk',
-//     key: 'koszyk',
-//   }
-// ];
-
-// const MainMenu = ({ isCardComponent }) => {
-//   const [current, setCurrent] = useState('mail');
-//   const navigate = useNavigate();
-
-//   const onClick = e => {
-//     setCurrent(e.key);
-
-//     if (e.key === "konto") {
-//       navigate("/login");
-//     }
-
-//     if (e.key === "kontakt") {
-//       navigate("/contact");
-//     }
-
-//     if (e.key === "MainPage") {
-//       navigate("/");
-//     }
-
-//     if (e.key === "news") {
-//       navigate("/news");
-//     }
-//   };
-//   return (
-//     <div>
-//       <h1 style={{
-//         textAlign: 'left',
-//         fontSize: '15px',
-//         fontWeight: 'bold',
-//         margin: '6px 0',
-//         color: '#333',
-//         padding: '0',
-//       }}>
-//         Antykwariat
-//       </h1>
-  
-//       {isCardComponent==false && (
-//         <Menu
-//           onClick={onClick}
-//           selectedKeys={[current]}
-//           mode="horizontal"
-//           items={items}
-//           style={{
-//             margin: '8px',
-//             backgroundColor: 'transparent',
-//             border: 'none',
-//             color: '#424756',
-//           }}
-//         />
-//       )}
-  
-//       <div>
-//         <header className="header">
-//           <div className="banner-container">
-//             <img src={baner} alt="Baner Antykwariat" className="banner-image" />
-//             <img src={logo} alt="Logo Antykwariat" className="logo-on-banner" />
-//           </div>
-//         </header>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default MainMenu;
-import React, { useState } from 'react';
-import { Menu } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Menu, Badge } from 'antd';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 import baner from '../mainbaner.png';
 import logo from '../logo.svg';
-
-const items = [
-  {
-    label: 'Strona główna',
-    key: 'MainPage',
-  },
-  {
-    label: 'Katalog',
-    key: 'SubMenu',
-    children: [
-      {
-        type: 'group',
-        children: [
-          { label: 'Option 1', key: 'setting:1' },
-          { label: 'Option 2', key: 'setting:2' },
-        ],
-      },
-    ],
-  },
-  {
-    label: 'Kontakt',
-    key: 'kontakt',
-  },
-  {
-    label: 'Konto',
-    key: 'konto',
-  },
-  {
-    label: 'Koszyk',
-    key: 'koszyk',
-  },
-  {
-    label: 'Aktualności',
-    key: 'news',
-  },
-];
+import BookService from '../services/BookService';
 
 const MainMenu = ({ isCardComponent }) => {
   const [current, setCurrent] = useState('MainPage');
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { totalItems } = useCart();
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const bookService = new BookService();
+        const categoriesData = await bookService.getCategoriesForView();
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error('Błąd ładowania kategorii:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCategories();
+  }, []);
 
   const onClick = (e) => {
     setCurrent(e.key);
@@ -173,9 +50,50 @@ const MainMenu = ({ isCardComponent }) => {
         navigate('/news');
         break;
       default:
+        if (e.key.startsWith('category-')) {
+          const categoryId = e.key.split('-')[1];
+          navigate(`/category/${categoryId}`);
+        }
         break;
     }
   };
+
+  const items = [
+    {
+      label: 'Strona główna',
+      key: 'MainPage',
+    },
+    {
+      label: 'Katalog',
+      key: 'SubMenu',
+      children: loading 
+        ? [{ label: 'Ładowanie...', key: 'loading', disabled: true }]
+        : categories.map(category => ({
+            label: category.label,
+            key: `category-${category.value}`,
+          })),
+    },
+    {
+      label: 'Kontakt',
+      key: 'kontakt',
+    },
+    {
+      label: 'Konto',
+      key: 'konto',
+    },
+    {
+      label: (
+        <Badge count={totalItems} offset={[10, 0]}>
+          Koszyk
+        </Badge>
+      ),
+      key: 'koszyk',
+    },
+    {
+      label: 'Aktualności',
+      key: 'news',
+    },
+  ];
 
   return (
     <div>
