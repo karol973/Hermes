@@ -31,7 +31,7 @@ export default class BookService {
             label: item.value,      
         }));
     }
-    public async getBookSByCategoryAsync(category: BookCategory): Promise<BookDto[]> {
+    public async getBooksByCategoryAsync(category: BookCategory): Promise<BookDto[]> {
         const query: GetBooksByCategoryQuery = {
            category: category
         };
