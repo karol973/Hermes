@@ -7,7 +7,7 @@
             services.AddCors(options => options.AddDefaultPolicy(builder =>
             {
                 builder
-                   .WithOrigins("https://hermes-web.azurewebsites.net", "http://localhost:5173")
+                   .WithOrigins("https://red-hill-0e7791503.6.azurestaticapps.net", "http://localhost:5173")
                    .AllowAnyMethod()
                    .AllowAnyHeader()
                    .AllowCredentials()
