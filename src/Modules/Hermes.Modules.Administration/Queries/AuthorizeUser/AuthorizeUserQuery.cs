@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Hermes.Domain.Enums;
+using MediatR;
 
 namespace Hermes.Modules.Administration.Queries.AuthorizeUser
 {
-    internal class AuthorizeUserQuery
+    public sealed class AuthorizeUserQuery : IRequest<bool>
     {
+        public string Username { get; set; }
+        public Role Role { get; set; }
     }
 }
