@@ -26,13 +26,13 @@ namespace Hermes.Api.Web.Controllers
         }
         
         [HttpPost]
-        [AllowAnonymous]
+        [Authorization(Role.SuperUser)]
         public Task<IActionResult> CreateAsync([FromBody] CreateUserCommand command)
         {
             return HandleAsync(command);
         }
         [HttpPatch("{id:int}")]
-        [AllowAnonymous]
+        [Authorization(Role.SuperUser)]
         public Task<IActionResult> UpdateUserAsync(int id, [FromBody] UpdateUserCommand command)
         {
             command.Id = id;

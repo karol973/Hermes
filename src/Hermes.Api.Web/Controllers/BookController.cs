@@ -1,10 +1,12 @@
-﻿using Hermes.Modules.Books.Commands.Books.CreateBook;
+﻿using Hermes.Domain.Enums;
+using Hermes.Modules.Books.Commands.Books.CreateBook;
 using Hermes.Modules.Books.Commands.Books.UpdateBook;
 using Hermes.Modules.Books.Queries.GetAllBooks;
 using Hermes.Modules.Books.Queries.GetBookByAuthor;
 using Hermes.Modules.Books.Queries.GetBookById;
 using Hermes.Modules.Books.Queries.GetBookCategory;
 using Hermes.Modules.Books.Queries.GetBooksByCategory;
+using HermesWebApi.Configuration.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -54,14 +56,14 @@ namespace Hermes.Api.Web.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorization(Role.SuperUser)]
         public Task<IActionResult> CreateAsync([FromBody] CreateBookCommand command)
         {
             return HandleAsync(command);
         }
         
         [HttpPatch("{id:int}")]
-        [AllowAnonymous]
+        [Authorization(Role.SuperUser)]
         public Task<IActionResult> UpdateAsync(int id,[FromBody] UpdateBookCommand command)
         {
             command.Id = id;
