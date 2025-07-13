@@ -36,14 +36,15 @@ namespace Hermes.Api.Web.Authentication
             IEnumerable<Claim> claims = new[]
             {
             new Claim(ClaimTypes.Name, query.UserName),
-            new Claim(ClaimTypes.NameIdentifier, authStatus.Id.ToString())
+            new Claim(ClaimTypes.NameIdentifier, authStatus.Id.ToString()),
+            new Claim(ClaimTypes.Role, authStatus.Role.ToString())
          };
 
             ClaimsIdentity identity = new(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             AuthenticationProperties properties = new()
             {
-                IsPersistent = true
+                IsPersistent = true  // cookie wont be destroyed if browser close
             };
 
             await _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), properties);
