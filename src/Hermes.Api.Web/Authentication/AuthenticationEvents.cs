@@ -48,20 +48,6 @@ namespace Hermes.Api.Web.Authentication
 
         public override async Task ValidatePrincipal(CookieValidatePrincipalContext context)
         {
-            //var userIdClaim = context.Principal.FindFirst(ClaimTypes.NameIdentifier);
-
-            //UserDto user = await _mediator.Send(new GetUserByLoginQuery()
-            //{
-            //    Username = context.Principal.Identity.Name,
-            // });
-
-            //if (user?.IsActive == true)
-            //{
-            //    return;
-            //}
-
-            //context.RejectPrincipal();
-            //await context.HttpContext.SignOutAsync();
 
             var userIdClaim = context.Principal.FindFirst(ClaimTypes.NameIdentifier);
 
@@ -72,10 +58,12 @@ namespace Hermes.Api.Web.Authentication
                 return;
             }
 
-            // Użyj ID zamiast nazwy użytkownika do zapytania
+            // getting user by id 
+            // to do - change query name
+
             UserDto user = await _mediator.Send(new GetUserByLoginQuery
             {
-                Id = userId  
+                Id = userId,
             });
 
             if (user?.IsActive == true)
