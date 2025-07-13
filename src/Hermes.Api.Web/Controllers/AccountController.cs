@@ -1,4 +1,5 @@
 ﻿using Hermes.Api.Web.Authentication;
+using Hermes.Domain.Enums;
 using Hermes.Modules.Administration.Commands.Users.ChangePassword;
 using Hermes.Modules.Users.Queries.AuthenticateUser;
 using HermesWebApi.Configuration.Filters;
@@ -43,7 +44,7 @@ namespace Hermes.Api.Web.Controllers
 
 
         [HttpPatch("{id:int}")]
-        [AllowAnonymous]
+        [Authorization(Role.User)]
         public Task<IActionResult> ChangePasswordAsync(int id, [FromBody] ChangePasswordCommand command)
         {
             command.Id = id;
