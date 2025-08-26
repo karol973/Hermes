@@ -16,6 +16,7 @@ using Hermes.Modules.Books.Queries.GetBookByCategory;
 using Hermes.Modules.Users.Queries.AuthenticateUser;
 using Hermes.Api.Web.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Hermes.Modules.Administration.Queries.AuthorizeUser;
 
 namespace HermesWebApi;
 
@@ -73,6 +74,7 @@ public class Startup
             cfg.RegisterServicesFromAssembly(typeof(GetAllAuthorsQueryHandler).Assembly);
             cfg.RegisterServicesFromAssembly(typeof(GetBookByCategoryQueryHandler).Assembly);
             cfg.RegisterServicesFromAssembly(typeof(AuthenticateUserQueryHandler).Assembly);
+            cfg.RegisterServicesFromAssembly(typeof(AuthorizeUserQueryHandler).Assembly);
 
         });
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
